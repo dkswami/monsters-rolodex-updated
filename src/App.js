@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import CardList from './components/card-list/card-list.comonent';
+
+import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component';
 import './App.css';
 
 const App = () => {
 	const [searchField, setSearchField] = useState('');
-	const [monsters, setMonsters] = useState('');
+	const [monsters, setMonsters] = useState([]);
 	const [filteredMonsters, setFilterMonsters] = useState(monsters);
 
 	useEffect(() => {
@@ -15,7 +16,7 @@ const App = () => {
 	}, []);
 	
 	useEffect(() => {
-		const newFilteredMonsters = monster.filter((monster) => {
+		const newFilteredMonsters = monsters.filter((monster) => {
 			return monster.name.toLocaleLowerCase().includes(searchField);
 		});
 
@@ -25,7 +26,7 @@ const App = () => {
 	const onSearchChange = (event) => {
 		const searchFieldString = event.target.value.toLocaleLowerCase();
 		setSearchField(searchFieldString);
-	}
+	};
 
 	return (
 		<div className='App'>
@@ -39,7 +40,6 @@ const App = () => {
 			<CardList monsters={filteredMonsters} />
 		</div>
 	);
-
 };
 
 
